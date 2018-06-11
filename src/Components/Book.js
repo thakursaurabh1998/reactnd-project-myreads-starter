@@ -6,9 +6,12 @@ class Book extends Component {
     bookTitle: PropTypes.string.isRequired,
     bookAuthor: PropTypes.array.isRequired,
     bookCover: PropTypes.string.isRequired,
+    onShelfChange: PropTypes.func.isRequired
   }
+
+
   render() {
-    const { bookCover, bookAuthor, bookTitle } = this.props;
+    const { bookCover, bookAuthor, bookTitle, onShelfChange } = this.props;
     return (
       <div className="book">
         <div className="book-top">
@@ -22,7 +25,7 @@ class Book extends Component {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select onChange={onShelfChange} defaultValue="move">
               <option value="move" disabled>
                 Move to...
               </option>

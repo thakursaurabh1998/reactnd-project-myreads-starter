@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Book from "./Book";
-import * as BooksAPI from "./BooksAPI";
+import * as BooksAPI from "../BooksAPI";
+import PropTypes from 'prop-types';
 
 class SearchPage extends Component {
   state = {
     query: "",
     books: []
   };
+
+  static propTypes = {
+    onAdd: PropTypes.func.isRequired
+  }
 
   searchRequest(query) {
     this.setState({ query });
@@ -36,6 +41,7 @@ class SearchPage extends Component {
   }
 
   render() {
+    const { onAdd } = this.props;
     const { query, books } = this.state;
     return (
       <div className="search-books">
@@ -85,6 +91,7 @@ class SearchPage extends Component {
             {books.map(book => (
               <li key={book.id}>
                 <Book
+                  onShelfChange={(e)=>onAdd(book,e)}
                   bookTitle={book.title}
                   bookAuthor={book.authors}
                   bookCover={book.imageLinks.thumbnail}
